@@ -1,0 +1,43 @@
+{
+  "projects": [
+    {
+      "repo": "MarcyVibin/screen-selector",
+      "branch": null,
+      "nameOverride": "Screen Selector",
+      "descriptionOverride": null,
+      "tags": ["Python", "CV", "Tooling"],
+      "liveUrl": null,
+      "pinned": true,
+      "fallbackText": "A small Python tool that lets you drag-select a screen region and grabs it as an image for further processing.",
+      "hideReadme": false
+    },
+    {
+      "repo": "MarcyVibin/PDFConverter",
+      "branch": null,
+      "nameOverride": "PDF Converter",
+      "descriptionOverride": null,
+      "tags": ["Python", "Tooling"],
+      "liveUrl": null,
+      "pinned": true,
+      "fallbackText": "A utility for converting documents to and from PDF format.",
+      "hideReadme": false
+    },
+    {
+      "repo": "MarcyVibin/ssh_controller",
+      "branch": null,
+      "nameOverride": "SSH Controller",
+      "descriptionOverride": null,
+      "tags": ["Python", "Networking", "Tooling"],
+      "liveUrl": null,
+      "pinned": true,
+      "fallbackText": "A tool for managing and controlling devices remotely over SSH.",
+      "hideReadme": false
+    }
+  ],
+  "settings": {
+    "githubApiBase": "https://api.github.com",
+    "rawContentBase": "https://raw.githubusercontent.com",
+    "cacheTtlMinutes": 60,
+    "maxProjectsShown": 6
+  }
+}
