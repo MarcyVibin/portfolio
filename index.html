@@ -34,23 +34,29 @@
 
     <!-- ============ HERO ============ -->
     <section id="hero" class="hero">
-      <div class="container">
-        <p class="hero-eyebrow">Computer Science @ TU Graz</p>
-        <h1 class="hero-name reveal">
-          <!-- TODO: replace placeholder name -->
-          Marc Steger
-        </h1>
-        <p class="hero-tagline reveal" style="--delay: 1">
-          CS student building small, useful tools — from computer vision utilities
-          to systems tooling.
-        </p>
-        <div class="hero-links reveal" style="--delay: 2">
-          <a class="link-btn" href="https://github.com/MarcyVibin" target="_blank" rel="noopener">GitHub</a>
-          <a class="link-btn" href="https://www.linkedin.com/in/marc-steger-5aa065435/" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="link-btn" href="mailto:marc.steger06@gmail.com">Email</a>
-          <!-- Resume: placeholder file not yet added. Swap in assets/resume.pdf when ready. -->
-          <a class="link-btn" id="resume-link" href="assets/resume.pdf" target="_blank" rel="noopener">Resume</a>
-          <a class="link-btn link-btn-primary link-btn-cta" href="#projects">View Projects</a>
+      <div class="container hero-inner">
+        <div class="hero-avatar" id="hero-avatar">
+          <!-- Populated by script.js: tries assets/profile.jpg, then assets/profile.png,
+               falls back to initials derived from the name below if neither exists. -->
+          <img class="hero-avatar-img" id="hero-avatar-img" alt="Marc Steger" hidden>
+          <span class="hero-avatar-initials" id="hero-avatar-initials" hidden></span>
+        </div>
+        <div class="hero-content">
+          <p class="hero-eyebrow">Computer Science @ TU Graz</p>
+          <h1 class="hero-name reveal">
+            Marc Steger
+          </h1>
+          <p class="hero-tagline reveal" style="--delay: 1">
+            CS student building from small tooling libraries — to enterprise sized applications.
+          </p>
+          <div class="hero-links reveal" style="--delay: 2">
+            <a class="link-btn" href="https://github.com/MarcyVibin" target="_blank" rel="noopener">GitHub</a>
+            <a class="link-btn" href="https://www.linkedin.com/in/marc-steger-5aa065435/" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="link-btn" href="mailto:marc.steger06@gmail.com">Email</a>
+            <!-- Resume: placeholder file not yet added. Swap in assets/resume.pdf when ready. -->
+            <a class="link-btn" id="resume-link" href="assets/resume.pdf" target="_blank" rel="noopener">Resume</a>
+            <a class="link-btn link-btn-primary link-btn-cta" href="#projects">View Projects</a>
+          </div>
         </div>
       </div>
     </section>
@@ -61,12 +67,11 @@
         <h2 class="section-title">About</h2>
         <div class="about-grid">
           <p class="about-bio">
-            <!-- TODO: replace placeholder bio -->
-            I'm a Computer Science student at TU Graz interested in the space between
-            practical tooling and applied machine learning. I like building small
-            programs that solve a real, specific annoyance — screen capture tools,
-            file converters, remote device controllers — and I'm currently deepening
-            my background in AI/ML coursework and projects.
+            Hi, I'm Marc. I'm a Computer Science student at TU Graz. 
+            I've always been drawn to the field and love working on interesting projects. 
+            My current favorite interests are cyber security and building small projects that simplify daily annoyances. 
+            In my free time I like to work on my home lab (local server system) and go to the gym. 
+            If there's anything you'd like to know about me, feel free to email me or reach out on LinkedIn.
           </p>
           <dl class="about-facts">
             <div class="about-fact">
@@ -79,7 +84,7 @@
             </div>
             <div class="about-fact">
               <dt>Interests</dt>
-              <dd>Applied ML, developer tooling, systems</dd>
+              <dd>Applied ML, Cyber Security, Operating Systems</dd>
             </div>
           </dl>
         </div>
@@ -95,10 +100,10 @@
             <h3 class="skill-group-title">Languages</h3>
             <ul class="skill-list">
               <li>Python</li>
-              <li>JavaScript</li>
-              <li>Java</li>
               <li>C / C++</li>
+              <li>Java</li>
               <li>SQL</li>
+              <li>JavaScript</li>
             </ul>
           </div>
           <div class="skill-group">
@@ -113,8 +118,8 @@
           <div class="skill-group">
             <h3 class="skill-group-title">Currently learning</h3>
             <ul class="skill-list">
-              <li>Machine Learning fundamentals</li>
-              <li>Computer Vision</li>
+              <li>Information Security</li>
+              <li>React</li>
             </ul>
           </div>
         </div>
@@ -134,32 +139,12 @@
       </div>
     </section>
 
-    <!-- ============ EXPERIENCE / EDUCATION ============ -->
+    <!-- ============ EXPERIENCE ============ -->
     <section id="experience" class="section">
       <div class="container">
-        <h2 class="section-title">Experience &amp; Education</h2>
-        <ol class="timeline">
-          <li class="timeline-item">
-            <div class="timeline-marker">01</div>
-            <div class="timeline-content">
-              <h3 class="timeline-title">B.Sc. Computer Science</h3>
-              <p class="timeline-meta">TU Graz &middot; In progress</p>
-              <p class="timeline-desc">
-                <!-- TODO: replace placeholder -->
-                Coursework spanning algorithms, systems, and machine learning.
-              </p>
-            </div>
-          </li>
-          <li class="timeline-item">
-            <div class="timeline-marker">02</div>
-            <div class="timeline-content">
-              <h3 class="timeline-title">Independent Projects</h3>
-              <p class="timeline-meta">Ongoing</p>
-              <p class="timeline-desc">
-                Building and open-sourcing small tools (see Projects above).
-              </p>
-            </div>
-          </li>
+        <h2 class="section-title">Experience</h2>
+        <ol id="experience-list" class="timeline" aria-live="polite">
+          <!-- Populated by script.js from experience.config.json -->
         </ol>
       </div>
     </section>
@@ -169,8 +154,8 @@
       <div class="container">
         <h2 class="section-title">Contact</h2>
         <p class="section-subtitle">
-          The fastest way to reach me is email — happy to talk about internships,
-          projects, or collaboration.
+          The fastest way to reach me is email - happy to talk about internships,
+          jobs, projects, or collaboration.
         </p>
         <div class="contact-links">
           <a class="link-btn link-btn-primary" href="mailto:marc.steger06@gmail.com">marc.steger06@gmail.com</a>

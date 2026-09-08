@@ -1,6 +1,17 @@
 {
   "projects": [
     {
+      "repo": null,
+      "branch": null,
+      "nameOverride": "Operating System Development",
+      "descriptionOverride": "I have absolved the course \"Operating Systems\" lectured by Daniel Gruß at the Technical University Graz. In this Course we developed our own multithreaded Operating System which is based on the minimal implementation of the SWEB Kernel.",
+      "tags": ["C / C++", "OS", "OS Development"],
+      "liveUrl": null,
+      "pinned": true,
+      "fallbackText": null,
+      "hideReadme": true
+    },
+    {
       "repo": "MarcyVibin/screen-selector",
       "branch": null,
       "nameOverride": "Screen Selector",

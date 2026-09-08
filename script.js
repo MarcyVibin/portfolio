@@ -2,6 +2,7 @@
   'use strict';
 
   const CONFIG_URL = 'projects.config.json';
+  const EXPERIENCE_CONFIG_URL = 'experience.config.json';
   const CACHE_PREFIX = 'portfolio:readme:';
 
   /* ------------------------------------------------------------------ */
@@ -141,22 +142,23 @@
   function buildCardShell(project) {
     const card = document.createElement('article');
     card.className = 'project-card';
-    card.dataset.repo = project.repo;
+    if (project.repo) card.dataset.repo = project.repo;
 
-    const [owner, repo] = project.repo.split('/');
+    const [owner, repo] = project.repo ? project.repo.split('/') : [null, null];
     const tags = (project.tags || [])
       .map((t) => `<span class="project-tag">${t}</span>`)
       .join('');
+    const displayName = project.nameOverride || (repo ? titleCase(repo) : 'Untitled Project');
 
     card.innerHTML = `
       <div class="project-card-header">
         <div class="project-card-heading">
-          <h3 class="project-name">${project.nameOverride || titleCase(repo)}</h3>
+          <h3 class="project-name">${displayName}</h3>
           ${project.descriptionOverride ? `<p class="project-subtitle">${project.descriptionOverride}</p>` : ''}
           <div class="project-tags">${tags}</div>
         </div>
         <div class="project-links">
-          <a class="project-link-btn" href="https://github.com/${owner}/${repo}" target="_blank" rel="noopener">GitHub</a>
+          ${project.repo ? `<a class="project-link-btn" href="https://github.com/${owner}/${repo}" target="_blank" rel="noopener">GitHub</a>` : ''}
           ${project.liveUrl ? `<a class="project-link-btn" href="${project.liveUrl}" target="_blank" rel="noopener">Live &rarr;</a>` : ''}
         </div>
       </div>
@@ -193,6 +195,12 @@
     if (project.hideReadme) return;
 
     const body = card.querySelector('.project-readme');
+
+    if (!project.repo) {
+      body.innerHTML = `<p>${fallbackMessage(project)}</p>`;
+      return;
+    }
+
     const [owner, repo] = project.repo.split('/');
 
     try {
@@ -220,6 +228,87 @@
   /* Init                                                                */
   /* ------------------------------------------------------------------ */
 
+  /* Hero avatar: try assets/profile.jpg, then assets/profile.png, then fall
+     back to initials derived from the hero name. */
+  function initHeroAvatar() {
+    const img = document.getElementById('hero-avatar-img');
+    const initialsEl = document.getElementById('hero-avatar-initials');
+    if (!img || !initialsEl) return;
+
+    const name = (document.querySelector('.hero-name')?.textContent || '').trim();
+    const initials = name
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((word) => word[0])
+      .join('')
+      .slice(0, 2)
+      .toUpperCase();
+    initialsEl.textContent = initials || '?';
+
+    const candidates = ['assets/profile.jpg', 'assets/profile.png'];
+    let i = 0;
+
+    function tryNext() {
+      if (i >= candidates.length) {
+        img.hidden = true;
+        initialsEl.hidden = false;
+        return;
+      }
+      img.src = candidates[i++];
+    }
+
+    img.addEventListener('load', () => {
+      img.hidden = false;
+      initialsEl.hidden = true;
+    });
+    img.addEventListener('error', tryNext);
+    tryNext();
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Experience / Education                                              */
+  /* ------------------------------------------------------------------ */
+
+  function buildExperienceItem(entry) {
+    const li = document.createElement('li');
+    li.className = 'timeline-item';
+
+    const meta = [entry.organization, entry.dateRange].filter(Boolean).join(' · ');
+    const bullets = (entry.bullets || [])
+      .map((bullet) => `<li>${bullet}</li>`)
+      .join('');
+
+    li.innerHTML = `
+      <div class="timeline-marker" aria-hidden="true"></div>
+      <div class="timeline-content">
+        <h3 class="timeline-title">${entry.title}</h3>
+        ${meta ? `<p class="timeline-meta">${meta}</p>` : ''}
+        ${entry.description ? `<p class="timeline-desc">${entry.description}</p>` : ''}
+        ${bullets ? `<ul class="timeline-bullets">${bullets}</ul>` : ''}
+      </div>
+    `;
+    return li;
+  }
+
+  async function initExperience() {
+    const listEl = document.getElementById('experience-list');
+    if (!listEl) return;
+
+    let config;
+    try {
+      const res = await fetch(EXPERIENCE_CONFIG_URL);
+      config = await res.json();
+    } catch (err) {
+      listEl.innerHTML = '<li>Could not load experience.</li>';
+      return;
+    }
+
+    const entries = config.entries || [];
+    entries.forEach((entry) => {
+      listEl.appendChild(buildExperienceItem(entry));
+    });
+  }
+
   /* Resume PDF is not added yet (see PLAN.md #6) — hide the link until it exists. */
   async function checkResumeLink() {
     const link = document.getElementById('resume-link');
@@ -233,7 +322,9 @@
   }
 
   async function init() {
+    initHeroAvatar();
     checkResumeLink();
+    initExperience();
 
     const listEl = document.getElementById('projects-list');
     if (!listEl) return;
