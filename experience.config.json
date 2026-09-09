@@ -8,17 +8,17 @@
       "bullets": []
     },
     {
-      "title": "B.Sc. Computer Science",
-      "organization": "Technical University Graz",
-      "dateRange": "since 2024 - ongoing",
-      "description": "Coursework spanning algorithms, systems, and machine learning.",
-      "bullets": []
-    },
-    {
       "title": "Self-Employed Software Developer",
       "organization": "BBMRI-ERIC",
       "dateRange": "since 2023 - ongoing",
       "description": "Building Software with Office 365 and API integration and building Full Stack Applications for the finance department.",
+      "bullets": []
+    },
+    {
+      "title": "B.Sc. Computer Science",
+      "organization": "Technical University Graz",
+      "dateRange": "since 2024 - ongoing",
+      "description": "Coursework spanning algorithms, systems, and machine learning.",
       "bullets": []
     }
   ]

@@ -587,6 +587,28 @@ h1, h2, h3, p { margin: 0; }
 /* ==========================================================================
    Skills
    ========================================================================== */
+/* Code-editor photo anchored to the left edge, sitting behind the content.
+   The radial mask fades it out in every direction from that edge so it has no
+   visible rectangle — it dissolves into the section instead of ending. */
+.skills-media {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 56%;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0.22;
+  -webkit-mask-image: radial-gradient(115% 92% at 0% 50%, #000 0%, #000 32%, transparent 78%);
+  mask-image: radial-gradient(115% 92% at 0% 50%, #000 0%, #000 32%, transparent 78%);
+}
+.skills-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 30% center;
+}
+
 .skills-bento {
   display: grid;
   grid-template-columns: 1.35fr 1fr;
@@ -598,7 +620,10 @@ h1, h2, h3, p { margin: 0; }
   display: flex;
   flex-direction: column;
   padding: var(--space-3);
-  background: linear-gradient(158deg, rgba(18, 84, 79, 0.42) 0%, var(--surface) 58%);
+  /* Fully opaque: the background image must not read through the tiles. Both
+     stops are solid — the previous top stop was rgba(...,0.42), which let the
+     code texture bleed through the corner. */
+  background: linear-gradient(158deg, #0D3838 0%, var(--surface) 58%);
   border: 1px solid var(--line);
   border-radius: 12px;
   overflow: hidden;
@@ -1295,6 +1320,9 @@ button:focus-visible {
   .about-grid { grid-template-columns: 1fr; gap: var(--space-3); }
   .skills-bento { grid-template-columns: 1fr; gap: var(--space-2); }
   .skill-tile-lead { grid-row: auto; }
+  /* Tiles span the full width here, so a left-hand strip would be entirely
+     hidden behind them — widen it so the texture still reads around them. */
+  .skills-media { width: 100%; }
   .projects-body { flex-direction: column; }
   /* The pager turns horizontal here and would otherwise run underneath the
      fixed section-nav rail pinned to the right edge. */

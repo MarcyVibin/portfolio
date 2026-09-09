@@ -372,7 +372,11 @@
   /* True when the wheel belongs to a nested scroller (an expanded README, a
      section too tall for a short window) that still has room to move. */
   function consumedByInnerScroller(node, deltaY) {
-    for (let el = node; el && el !== document.body; el = el.parentElement) {
+    /* `node` may be `document` or `<html>` itself when the wheel fires outside
+       `<body>`'s box (e.g. the pointer sitting over the gutter after a resize
+       or browser zoom shifts body's fill) — `nodeType !== 1` catches those
+       non-Element ancestors before getComputedStyle() throws on them. */
+    for (let el = node; el && el.nodeType === 1 && el !== document.body; el = el.parentElement) {
       const style = getComputedStyle(el);
       if (style.overflowY !== 'auto' && style.overflowY !== 'scroll') continue;
       const room = el.scrollHeight - el.clientHeight;
