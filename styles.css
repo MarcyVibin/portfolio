@@ -430,11 +430,15 @@ h1, h2, h3, p { margin: 0; }
   transition: opacity 0.22s ease, visibility 0.22s ease, transform 0.22s ease,
               border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
 }
+/* Divider sitting in the 16px gap above the button. `top` must be explicit:
+   without it the static position of an abs-positioned pseudo-element inside a
+   centred flex container is the button's middle, which drew the rule straight
+   through the icon. */
 .back-to-top::before {
   content: '';
   position: absolute;
+  top: -8px;
   right: 0;
-  margin-top: -14px;
   width: 22px;
   height: 1px;
   background: var(--line);
